@@ -1,39 +1,82 @@
-// src/components/SongCard.js
-import React, { useContext, useState } from 'react';
+// frontend/src/components/SongCard.js
+import React from 'react';
+import PropTypes from 'prop-types';
+import { useContext } from 'react';
 import { QueueContext } from '../contexts/QueueContext';
-import Modal from 'react-modal';
 
-export default function SongCard({ song, onAdd, onPlay, token }) {
-  const { enqueue, replaceQueueAndPlay, audioRef, playSongAt } = useContext(QueueContext);
-  const [showInfo, setShowInfo] = useState(false);
-  const [isQuickLoading, setQuickLoading] = useState(false);
+export default function SongCard({ song, onAdd, onPlay, small }) {
+  // If parent doesn't pass onPlay/onAdd, fall back to queue context
+  const { enqueue, replaceQueueAndPlay } = useContext(QueueContext);
 
-  const handlePlay = () => {
-    setQuickLoading(true);
-    setTimeout(()=> {
-      setQuickLoading(false);
-      onPlay();
-    }, 500); // 0.5s mini loader for non-song button actions (requirement #4)
+  const playHandler = () => {
+    if (onPlay) return onPlay();
+    // play this single song now
+    replaceQueueAndPlay([normalize(song)], 0);
   };
 
+  const addHandler = () => {
+    if (onAdd) return onAdd();
+    enqueue(normalize(song));
+  };
+
+  const infoHandler = () => {
+    const info = [
+      `Title: ${song.title || 'Unknown'}`,
+      `Artist: ${song.artist || 'Unknown'}`,
+      `URL: ${song.url || 'N/A'}`,
+      song.createdAt ? `Created: ${new Date(song.createdAt).toLocaleString()}` : ''
+    ].filter(Boolean).join('\n');
+    alert(info);
+  };
+
+  function normalize(s) {
+    // ensure url/cover are absolute: if they start with '/' assume backend base will be prepended by SongsPage
+    return {
+      title: s.title || 'Unknown',
+      artist: s.artist || 'Unknown',
+      url: s.url,
+      cover: s.cover
+    };
+  }
+
   return (
-    <div style={{border:'1px solid #ddd',borderRadius:8,padding:10}}>
-      <img src={song.cover} alt="" style={{width:'100%',height:140,objectFit:'cover'}} />
-      <h4>{song.title}</h4>
-      <p>{song.artist}</p>
-      <div style={{display:'flex',gap:8}}>
-        <button onClick={handlePlay}>{isQuickLoading ? 'Loading...' : 'Play'}</button>
-        <button onClick={() => onAdd()}>Add to Queue</button>
-        <button onClick={()=> setShowInfo(true)}>Info</button>
+    <div style={{
+      border: '1px solid #e6e6e6',
+      padding: 10,
+      borderRadius: 8,
+      display: 'flex',
+      gap: 12,
+      alignItems: 'center',
+      background: '#fff',
+      boxShadow: '0 1px 4px rgba(0,0,0,0.04)'
+    }}>
+      <div style={{ width: small ? 56 : 96, height: small ? 56 : 96, flex: '0 0 auto' }}>
+        {song.cover ? (
+          <img src={song.cover} alt={song.title} style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 6 }} />
+        ) : (
+          <div style={{
+            width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center',
+            background: '#f4f4f4', borderRadius: 6, color: '#666'
+          }}>{song.title ? song.title[0].toUpperCase() : '?'}</div>
+        )}
       </div>
 
-      <Modal isOpen={showInfo} onRequestClose={()=>setShowInfo(false)} ariaHideApp={false}>
-        <h3>{song.title}</h3>
-        <p>Artist: {song.artist}</p>
-        <p>Source: {song.url}</p>
-        <p>Uploaded: Not available</p>
-        <button onClick={()=>setShowInfo(false)}>Close</button>
-      </Modal>
+      <div style={{ flex: 1 }}>
+        <div style={{ fontWeight: 600 }}>{song.title}</div>
+        <div style={{ color: '#666', fontSize: 13 }}>{song.artist}</div>
+        <div style={{ marginTop: 8, display: 'flex', gap: 8 }}>
+          <button onClick={playHandler}>Play</button>
+          <button onClick={addHandler}>Add</button>
+          <button onClick={infoHandler}>Info</button>
+        </div>
+      </div>
     </div>
   );
 }
+
+SongCard.propTypes = {
+  song: PropTypes.object.isRequired,
+  onAdd: PropTypes.func,
+  onPlay: PropTypes.func,
+  small: PropTypes.bool
+};
