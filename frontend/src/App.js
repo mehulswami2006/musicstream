@@ -30,7 +30,7 @@ export default function App() {
   const location = useLocation();
 
   useEffect(() => {
-    const t = setTimeout(() => setShowSplash(false), 1500); // show splash 1.5s
+    const t = setTimeout(() => setShowSplash(false), 3000); // show splash 3s
     return () => clearTimeout(t);
   }, []);
 
