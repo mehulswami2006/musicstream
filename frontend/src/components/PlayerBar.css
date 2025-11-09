@@ -1,0 +1,26 @@
+.player-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(180deg, rgba(24,24,24,0.98), rgba(18,18,18,0.98));
+  border-top: 1px solid #222;
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  z-index: 999;
+}
+
+.now-playing { display:flex; align-items:center; gap:12px; min-width:220px; max-width:320px; }
+.now-cover { width:56px; height:56px; object-fit:cover; border-radius:6px; }
+.now-meta { display:flex; flex-direction:column; gap:4px; }
+.now-title { font-weight:700; }
+.now-artist { font-size:0.9rem; color:var(--spotify-light-gray); }
+
+.controls { display:flex; align-items:center; gap:8px; flex:1; align-self:center; }
+.controls button { background:transparent; color:var(--spotify-white); border:none; padding:6px 8px; border-radius:8px; }
+.controls button:hover { color:var(--spotify-green); background: rgba(29,185,84,0.04); }
+
+.seek { width: 40%; margin: 0 10px; }
+.time { min-width:44px; text-align:center; color:var(--spotify-light-gray); font-size:0.85rem; }

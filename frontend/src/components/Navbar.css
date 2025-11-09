@@ -1,25 +1,22 @@
 .navbar {
-  background: #181818;
-  padding: 10px 20px;
-  display: flex;
-  gap: 20px;
-  border-bottom: 1px solid #333;
+  background-color: var(--spotify-dark-gray);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding: 12px 18px;
+  border-bottom: 1px solid #222;
+  position: sticky;
+  top: 0;
+  z-index: 50;
 }
 
-.navbar a {
-  color: white;
-  font-weight: 500;
-  transition: color 0.2s;
-}
+.navbar .logo { font-weight: 700; font-size: 1.15rem; color: var(--spotify-green); }
 
-.navbar a:hover {
-  color: #1db954;
+.navbar-right { display:flex; gap: 12px; align-items:center; }
+.navbar-right a {
+  color: var(--spotify-white);
+  padding: 6px 8px;
+  border-radius: 8px;
+  font-weight: 600;
 }
-
-.navbar a.active {
-  color: #1db954;
-  background-color: rgba(29, 185, 84, 0.1);
-  padding: 8px 12px;
-  border-radius: 4px;
-  border: 1px solid #1db954;
-}
+.navbar-right a:hover { color: var(--spotify-green); background: rgba(29,185,84,0.04); }
