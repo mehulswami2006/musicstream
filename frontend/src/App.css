@@ -1,0 +1,172 @@
+/* -----------------------------
+   Global Spotify-style theme
+------------------------------ */
+
+:root {
+  --spotify-green: #1db954;
+  --spotify-black: #121212;
+  --spotify-dark-gray: #181818;
+  --spotify-light-gray: #b3b3b3;
+  --spotify-white: #ffffff;
+  --spotify-hover: #1ed760;
+  --spotify-bg: #0f0f0f;
+  --transition-fast: 0.25s ease;
+  --transition-slow: 0.5s ease;
+}
+
+/* ------------- App container ------------- */
+.app-bg {
+  background-color: var(--spotify-black);
+  color: var(--spotify-white);
+  font-family: 'Inter', 'Poppins', sans-serif;
+  line-height: 1.6;
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+  isolation: isolate;
+  transition: background-color var(--transition-slow);
+}
+
+/* main content fade-in after splash */
+.app-bg main {
+  animation: fadeIn 0.8s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ------------- Buttons ------------- */
+button {
+  background-color: var(--spotify-green);
+  color: var(--spotify-black);
+  border: none;
+  padding: 8px 14px;
+  border-radius: 20px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+button:hover {
+  background-color: var(--spotify-hover);
+  transform: scale(1.05);
+}
+
+/* transparent buttons for secondary actions */
+button.secondary {
+  background: transparent;
+  border: 1px solid var(--spotify-green);
+  color: var(--spotify-green);
+}
+button.secondary:hover {
+  background: var(--spotify-green);
+  color: var(--spotify-black);
+}
+
+/* ------------- Headings & text ------------- */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  color: var(--spotify-white);
+}
+
+p, span, div, label {
+  color: var(--spotify-light-gray);
+}
+
+/* ------------- Scrollbar ------------- */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #111;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--spotify-green);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--spotify-hover);
+}
+
+/* ------------- Links ------------- */
+a {
+  text-decoration: none;
+  color: var(--spotify-white);
+  transition: color var(--transition-fast);
+}
+a:hover {
+  color: var(--spotify-green);
+}
+
+/* ------------- Inputs ------------- */
+input, select, textarea {
+  background-color: var(--spotify-dark-gray);
+  color: var(--spotify-white);
+  border: 1px solid #333;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 1rem;
+  outline: none;
+  transition: border var(--transition-fast), box-shadow var(--transition-fast);
+}
+input:focus, select:focus, textarea:focus {
+  border-color: var(--spotify-green);
+  box-shadow: 0 0 5px var(--spotify-green);
+}
+
+/* ------------- Cards (e.g. SongCard) ------------- */
+.card {
+  background: var(--spotify-dark-gray);
+  border-radius: 12px;
+  padding: 14px;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+  box-shadow: 0 3px 12px rgba(0,0,0,0.2);
+}
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 18px rgba(0,0,0,0.35);
+}
+
+/* ------------- Utility classes ------------- */
+.center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.text-center {
+  text-align: center;
+}
+.muted {
+  color: var(--spotify-light-gray);
+}
+.hidden {
+  display: none;
+}
+
+/* ------------- Transitions ------------- */
+.fade-enter {
+  opacity: 0;
+  transform: translateY(10px);
+}
+.fade-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.4s, transform 0.4s;
+}
+
+/* ------------- Responsive adjustments ------------- */
+@media (max-width: 768px) {
+  button {
+    padding: 7px 12px;
+    font-size: 0.9rem;
+  }
+  .card {
+    padding: 10px;
+  }
+  body {
+    font-size: 15px;
+  }
+}
