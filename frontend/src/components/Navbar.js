@@ -19,7 +19,7 @@ export default function Navbar() {
       <div className="navbar-left">
         <Link to="/" className="brand-link">
           <img
-            src="/MusicStreamLogo.png"
+            src="assets/MusicStreamLogo.png"
             alt="MusicStream"
             className="brand-logo"
             draggable="false"
