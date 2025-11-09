@@ -1,0 +1,74 @@
+/* SongsPage.css — Spotify-like song list grid */
+.songs-page {
+  padding: 20px;
+  color: var(--spotify-white);
+}
+
+.songs-page h2 {
+  color: var(--spotify-green);
+  margin-bottom: 14px;
+  font-weight: 700;
+}
+
+.songs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 18px;
+}
+
+.songs-grid .song-card {
+  background: var(--spotify-dark-gray);
+  border-radius: 10px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.songs-grid .song-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+}
+
+.song-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.song-card-title {
+  font-weight: 600;
+  margin-top: 10px;
+  color: #fff;
+}
+
+.song-card-artist {
+  font-size: 0.9rem;
+  color: var(--spotify-light-gray);
+}
+
+.song-card-buttons {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.song-card button {
+  background: var(--spotify-green);
+  color: #000;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 20px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.song-card button:hover {
+  transform: scale(1.05);
+  background: var(--spotify-green-dark);
+}

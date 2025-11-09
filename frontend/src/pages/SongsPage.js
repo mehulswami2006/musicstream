@@ -5,15 +5,16 @@ import SongCard from '../components/SongCard';
 import { QueueContext } from '../contexts/QueueContext';
 import { AuthContext } from '../contexts/AuthContext';
 import { useSearchParams } from 'react-router-dom';
+import './SongsPage.css';
 
 export default function SongsPage() {
-  const api = process.env.REACT_APP_API || '';
+  // 👇 Ensure this points to your Render backend
+  const api = process.env.REACT_APP_API || 'https://musicstream-rur2.onrender.com';
   const { enqueue, replaceQueueAndPlay } = useContext(QueueContext);
   const { token } = useContext(AuthContext);
   const [songs, setSongs] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // detect guest mode from query param (optional)
   const [searchParams] = useSearchParams();
   const guest = searchParams.get('guest') === 'true';
 
@@ -41,48 +42,37 @@ export default function SongsPage() {
   };
 
   const playNow = (song) => {
-    // replace queue with this single song and play
     replaceQueueAndPlay([song], 0);
   };
 
   return (
-    <div style={{ padding: 20 }}>
+    <div className="songs-page">
       <h2>Songs</h2>
       {loading ? (
         <p>Loading songs…</p>
       ) : (
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill,minmax(240px,1fr))',
-          gap: 12
-        }}>
+        <div className="songs-grid">
           {songs.length === 0 ? (
             <div>No songs available</div>
           ) : (
-            songs.map((s, i) => (
-              <SongCard
-                key={i}
-                song={s}
-                onAdd={() => addToQueue({
-                  title: s.title,
-                  artist: s.artist,
-                  url: s.url.startsWith('http') ? s.url : (api + s.url),
-                  cover: s.cover && (s.cover.startsWith('http') ? s.cover : (api + s.cover))
-                })}
-                onPlay={() => playNow({
-                  title: s.title,
-                  artist: s.artist,
-                  url: s.url.startsWith('http') ? s.url : (api + s.url),
-                  cover: s.cover && (s.cover.startsWith('http') ? s.cover : (api + s.cover))
-                })}
-                token={token}
-                guest={guest}
-              />
-            ))
+            songs.map((s, i) => {
+              // Ensure full URLs for backend-hosted files
+              const songUrl = s.url?.startsWith('http') ? s.url : `${api}${s.url}`;
+              const coverUrl = s.cover?.startsWith('http') ? s.cover : `${api}${s.cover}`;
+              return (
+                <SongCard
+                  key={i}
+                  song={{ ...s, url: songUrl, cover: coverUrl }}
+                  onAdd={() => addToQueue({ ...s, url: songUrl, cover: coverUrl })}
+                  onPlay={() => playNow({ ...s, url: songUrl, cover: coverUrl })}
+                  token={token}
+                  guest={guest}
+                />
+              );
+            })
           )}
         </div>
       )}
     </div>
   );
 }
-
