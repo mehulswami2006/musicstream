@@ -5,18 +5,26 @@ import { useContext } from 'react';
 import { QueueContext } from '../contexts/QueueContext';
 
 export default function SongCard({ song, onAdd, onPlay, small }) {
-  // If parent doesn't pass onPlay/onAdd, fall back to queue context
   const { enqueue, replaceQueueAndPlay } = useContext(QueueContext);
+  const api = (process.env.REACT_APP_API || '').replace(/\/$/, '');
+
+  function ensureAbsolute(u) {
+    if (!u) return u;
+    if (/^https?:\/\//i.test(u)) return u;
+    return api + (u.startsWith('/') ? u : `/${u}`);
+  }
 
   const playHandler = () => {
     if (onPlay) return onPlay();
-    // play this single song now
-    replaceQueueAndPlay([normalize(song)], 0);
+    const s = { ...song, url: ensureAbsolute(song.url), cover: song.cover ? ensureAbsolute(song.cover) : undefined };
+    replaceQueueAndPlay([s], 0);
   };
 
   const addHandler = () => {
     if (onAdd) return onAdd();
-    enqueue(normalize(song));
+    const s = { ...song, url: ensureAbsolute(song.url), cover: song.cover ? ensureAbsolute(song.cover) : undefined };
+    enqueue(s);
+    console.log('Added to queue', s.title);
   };
 
   const infoHandler = () => {
@@ -28,16 +36,6 @@ export default function SongCard({ song, onAdd, onPlay, small }) {
     ].filter(Boolean).join('\n');
     alert(info);
   };
-
-  function normalize(s) {
-    // ensure url/cover are absolute: if they start with '/' assume backend base will be prepended by SongsPage
-    return {
-      title: s.title || 'Unknown',
-      artist: s.artist || 'Unknown',
-      url: s.url,
-      cover: s.cover
-    };
-  }
 
   return (
     <div style={{
