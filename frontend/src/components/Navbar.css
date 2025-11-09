@@ -1,22 +1,87 @@
 .navbar {
   background-color: var(--spotify-dark-gray);
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   padding: 12px 18px;
   border-bottom: 1px solid #222;
   position: sticky;
   top: 0;
-  z-index: 50;
+  z-index: 100;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
 }
 
-.navbar .logo { font-weight: 700; font-size: 1.15rem; color: var(--spotify-green); }
+/* Brand / Logo section */
+.brand-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+.brand-logo {
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+  border-radius: 8px;
+  user-select: none;
+}
+.brand-text {
+  color: var(--spotify-green);
+  font-weight: 700;
+  font-size: 1.2rem;
+  letter-spacing: 0.5px;
+}
 
-.navbar-right { display:flex; gap: 12px; align-items:center; }
+/* Nav links (right side) */
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
 .navbar-right a {
   color: var(--spotify-white);
-  padding: 6px 8px;
-  border-radius: 8px;
   font-weight: 600;
+  padding: 6px 10px;
+  border-radius: 8px;
+  transition: color 0.15s ease, background 0.15s ease;
 }
-.navbar-right a:hover { color: var(--spotify-green); background: rgba(29,185,84,0.04); }
+
+.navbar-right a:hover {
+  color: var(--spotify-green);
+  background: rgba(29, 185, 84, 0.1);
+}
+
+/* Logout button */
+.logout-btn {
+  background: transparent;
+  border: 1px solid var(--spotify-green);
+  color: var(--spotify-green);
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.logout-btn:hover {
+  background: var(--spotify-green);
+  color: var(--spotify-black);
+  transform: scale(1.05);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  .navbar-right {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .brand-text {
+    font-size: 1.05rem;
+  }
+}

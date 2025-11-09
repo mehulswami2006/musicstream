@@ -1,81 +1,41 @@
-/* ======== SPOTIFY-THEMED GLOBAL STYLES ======== */
-
-/* Root color variables */
-:root {
-  --spotify-green: #1db954;
-  --spotify-green-dark: #1ed760;
-  --spotify-black: #121212;
-  --spotify-dark-gray: #181818;
-  --spotify-light-gray: #b3b3b3;
-  --spotify-white: #ffffff;
-}
-
-/* Global reset & base theme */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: 'Inter', 'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
-}
-
-html, body, #root {
-  height: 100%;
-}
-
-body {
-  background-color: var(--spotify-black);
-  color: var(--spotify-white);
+/* ===== Blurred logo background (used by .app-bg) ===== */
+.app-bg {
+  position: relative;
   min-height: 100vh;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  z-index: 0;
+  overflow-x: hidden;
+  /* create stacking context so ::before sits behind children */
+  isolation: isolate;
 }
 
-/* Scrollbar styling */
-::-webkit-scrollbar { width: 8px; }
-::-webkit-scrollbar-track { background: var(--spotify-dark-gray); }
-::-webkit-scrollbar-thumb { background-color: var(--spotify-green); border-radius: 10px; }
-
-/* Headings */
-h1,h2,h3,h4 { color: var(--spotify-white); letter-spacing: 0.5px; margin-bottom: 10px; }
-
-/* Utility containers */
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 18px;
+/* pseudo-element which shows the blurred logo */
+.app-bg::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  /* use the public logo — large, centered */
+  background-image: url('/MusicStreamLogo.png');
+  background-repeat: no-repeat;
+  background-position: center top;
+  background-size: 720px; /* adjust size as needed */
+  opacity: 0.06; /* subtle */
+  filter: blur(40px) saturate(120%);
+  transform: translateY(-6%);
+  pointer-events: none; /* allow clicks through */
 }
 
-/* Links & buttons */
-a { color: var(--spotify-green); text-decoration: none; }
-a:hover { text-decoration: underline; }
-
-button {
-  cursor: pointer;
-  background-color: var(--spotify-green);
-  color: var(--spotify-black);
-  border: none;
-  padding: 8px 12px;
-  border-radius: 20px;
-  font-weight: 600;
-  transition: background-color .16s ease, transform .08s ease;
+/* ensure main content sits above blurred background */
+.app-bg > * {
+  position: relative;
+  z-index: 1;
 }
 
-button:hover { background-color: var(--spotify-green-dark); transform: translateY(-1px); }
-button:active { transform: translateY(0); }
-
-/* Generic card */
-.card {
-  background-color: var(--spotify-dark-gray);
-  border-radius: 12px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.25);
-  padding: 12px;
-  transition: transform .18s ease, box-shadow .18s ease;
-}
-
-/* small text */
-.muted { color: var(--spotify-light-gray); font-size: 0.9rem; }
-
-/* responsive */
-@media (max-width: 640px) {
-  .container { padding: 12px; }
+/* optionally reduce background intensity on small screens */
+@media (max-width: 700px) {
+  .app-bg::before {
+    background-size: 420px;
+    filter: blur(36px) saturate(110%);
+    opacity: 0.055;
+  }
 }

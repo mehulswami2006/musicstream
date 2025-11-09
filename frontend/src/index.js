@@ -2,11 +2,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
-import './index.css';
 import { QueueProvider } from './contexts/QueueContext';
-import { AuthProvider } from './contexts/AuthContext'; // if you have this file
-import PlayerBar from './components/PlayerBar';
+import { AuthProvider } from './contexts/AuthContext';
 import { BrowserRouter } from 'react-router-dom';
+import './index.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -16,7 +15,6 @@ root.render(
         <BrowserRouter>
           <App />
         </BrowserRouter>
-        <PlayerBar />
       </QueueProvider>
     </AuthProvider>
   </React.StrictMode>
