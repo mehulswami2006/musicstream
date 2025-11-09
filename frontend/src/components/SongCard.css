@@ -1,0 +1,130 @@
+.song-card {
+  position: relative;
+  background: #181818;
+  border-radius: 10px;
+  overflow: hidden;
+  padding: 10px;
+  text-align: center;
+  transition: transform 0.2s ease, background 0.2s ease;
+  cursor: pointer;
+}
+
+.song-card:hover {
+  background: #282828;
+  transform: scale(1.05);
+}
+
+.song-cover {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.song-info {
+  margin-top: 8px;
+}
+
+.song-info h4 {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: white;
+}
+
+.song-info p {
+  margin: 0;
+  font-size: 0.8rem;
+  color: #b3b3b3;
+}
+
+.play-btn {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  background: #1db954;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 38px;
+  height: 38px;
+  font-size: 16px;
+  cursor: pointer;
+  display: none;
+}
+
+.song-card:hover .play-btn {
+  display: inline;
+}
+
+.song-actions {
+  display: flex;
+  gap: 5px;
+  margin-top: 10px;
+  justify-content: center;
+}
+
+.add-btn {
+  background: #1db954;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.add-btn:hover {
+  background: #1ed760;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal {
+  background: #2c2c2c;
+  padding: 20px;
+  border-radius: 10px;
+  min-width: 250px;
+  text-align: center;
+}
+
+.modal h3 {
+  color: white;
+  margin-bottom: 15px;
+}
+
+.modal button {
+  display: block;
+  width: 100%;
+  margin: 5px 0;
+  padding: 8px;
+  background: #1db954;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.modal button:hover {
+  background: #1ed760;
+}
+
+.modal button:last-child {
+  background: #666;
+}
+
+.modal button:last-child:hover {
+  background: #777;
+}

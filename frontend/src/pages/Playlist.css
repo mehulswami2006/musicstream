@@ -1,0 +1,68 @@
+.playlist-page {
+  padding: 20px;
+  color: white;
+}
+
+.create-playlist {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.create-playlist input {
+  padding: 8px;
+  border: none;
+  border-radius: 5px;
+  background: #333;
+  color: white;
+}
+
+.create-playlist button {
+  padding: 8px 16px;
+  background: #1db954;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.playlist-list {
+  display: grid;
+  gap: 15px;
+}
+
+.playlist-card {
+  background: #282828;
+  padding: 15px;
+  border-radius: 10px;
+}
+
+.playlist-card h3 {
+  margin: 0 0 5px 0;
+  color: white;
+}
+
+.playlist-card p {
+  margin: 0 0 10px 0;
+  color: #b3b3b3;
+  font-size: 0.9em;
+}
+
+.playlist-songs {
+  margin: 10px 0;
+}
+
+.playlist-song {
+  padding: 5px 0;
+  color: #ccc;
+  font-size: 0.9em;
+}
+
+.playlist-card button {
+  background: #e22134;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+}
