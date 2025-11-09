@@ -2,6 +2,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
+import './index.css';
 import { QueueProvider } from './contexts/QueueContext';
 import { AuthProvider } from './contexts/AuthContext'; // if you have this file
 import PlayerBar from './components/PlayerBar';

@@ -1,15 +1,235 @@
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background-color: #121212;
-  color: white;
+/* ======== SPOTIFY-THEMED GLOBAL STYLES ======== */
+
+/* Root color variables */
+:root {
+  --spotify-green: #1db954;
+  --spotify-green-dark: #1ed760;
+  --spotify-black: #121212;
+  --spotify-dark-gray: #181818;
+  --spotify-light-gray: #b3b3b3;
+  --spotify-white: #ffffff;
 }
 
-a {
-  text-decoration: none;
-  color: white;
-}
-
+/* Global reset & base theme */
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', 'Poppins', sans-serif;
+}
+
+body {
+  background-color: var(--spotify-black);
+  color: var(--spotify-white);
+  min-height: 100vh;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--spotify-dark-gray);
+}
+::-webkit-scrollbar-thumb {
+  background-color: var(--spotify-green);
+  border-radius: 10px;
+}
+
+/* Headings */
+h1, h2, h3, h4 {
+  color: var(--spotify-white);
+  letter-spacing: 0.5px;
+  margin-bottom: 10px;
+}
+
+/* Links & buttons */
+a {
+  color: var(--spotify-green);
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+button {
+  cursor: pointer;
+  background-color: var(--spotify-green);
+  color: var(--spotify-black);
+  border: none;
+  padding: 8px 14px;
+  border-radius: 24px;
+  font-weight: 600;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+button:hover {
+  background-color: var(--spotify-green-dark);
+  transform: scale(1.03);
+}
+
+button:active {
+  transform: scale(0.97);
+}
+
+/* Containers & Cards */
+.card, .song-card {
+  background-color: var(--spotify-dark-gray);
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  padding: 12px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover, .song-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.35);
+}
+
+/* Navbar */
+.navbar {
+  background-color: var(--spotify-dark-gray);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 22px;
+  border-bottom: 1px solid #333;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.navbar .logo {
+  font-weight: 700;
+  font-size: 1.4rem;
+  color: var(--spotify-green);
+}
+
+.navbar a {
+  color: var(--spotify-white);
+  margin: 0 12px;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.navbar a:hover {
+  color: var(--spotify-green);
+}
+
+/* Song Grid */
+.songs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+  padding: 20px;
+}
+
+/* SongCard */
+.song-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--spotify-dark-gray);
+  border-radius: 10px;
+  overflow: hidden;
+  padding: 12px;
+  text-align: center;
+}
+
+.song-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.song-card .title {
+  font-weight: 600;
+  color: var(--spotify-white);
+  font-size: 1rem;
+}
+
+.song-card .artist {
+  font-size: 0.9rem;
+  color: var(--spotify-light-gray);
+  margin-bottom: 8px;
+}
+
+/* Buttons inside SongCard */
+.song-card button {
+  background-color: var(--spotify-green);
+  color: var(--spotify-black);
+  border: none;
+  padding: 6px 12px;
+  border-radius: 24px;
+  margin: 3px;
+  font-size: 0.85rem;
+}
+
+.song-card button:hover {
+  background-color: var(--spotify-green-dark);
+}
+
+/* PlayerBar */
+.player-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: var(--spotify-dark-gray);
+  border-top: 1px solid #333;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 20px;
+  color: var(--spotify-white);
+}
+
+.player-bar .controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.player-bar button {
+  background: none;
+  color: var(--spotify-white);
+  font-size: 1.2rem;
+  padding: 6px;
+}
+
+.player-bar button:hover {
+  color: var(--spotify-green);
+}
+
+/* Queue / Playlist styling */
+.queue-container {
+  background-color: var(--spotify-dark-gray);
+  padding: 16px;
+  border-radius: 8px;
+  margin-top: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.queue-song {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid #2a2a2a;
+}
+
+.queue-song:last-child {
+  border-bottom: none;
+}
+
+.queue-song .name {
+  color: var(--spotify-white);
+  font-weight: 500;
+}
+
+.queue-song .artist {
+  color: var(--spotify-light-gray);
+  font-size: 0.85rem;
 }
