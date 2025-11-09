@@ -1,11 +1,11 @@
 // frontend/src/index.js
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import './index.css';
 import App from './App';
 import { QueueProvider } from './contexts/QueueContext';
-import { AuthProvider } from './contexts/AuthContext';
+import { AuthProvider } from './contexts/AuthContext'; // ensure this exists
 import { BrowserRouter } from 'react-router-dom';
-import './index.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

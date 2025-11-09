@@ -1,41 +1,79 @@
-/* ===== Blurred logo background (used by .app-bg) ===== */
-.app-bg {
-  position: relative;
-  min-height: 100vh;
-  z-index: 0;
-  overflow-x: hidden;
-  /* create stacking context so ::before sits behind children */
-  isolation: isolate;
+/* index.css — global variables & resets (Spotify-style) */
+
+:root{
+  --spotify-green: #1db954;
+  --spotify-green-dark: #1ed760;
+  --spotify-black: #121212;
+  --spotify-dark-gray: #181818;
+  --spotify-light-gray: #b3b3b3;
+  --spotify-white: #ffffff;
+  --spotify-hover: #1ed760;
+  --transition-fast: .18s ease;
+  --transition-slow: .4s ease;
 }
 
-/* pseudo-element which shows the blurred logo */
-.app-bg::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  /* use the public logo — large, centered */
-  background-image: url('/MusicStreamLogo.png');
-  background-repeat: no-repeat;
-  background-position: center top;
-  background-size: 720px; /* adjust size as needed */
-  opacity: 0.06; /* subtle */
-  filter: blur(40px) saturate(120%);
-  transform: translateY(-6%);
-  pointer-events: none; /* allow clicks through */
+/* Reset & base */
+*{box-sizing:border-box;margin:0;padding:0}
+html,body,#root{height:100%}
+body{
+  font-family: "Inter", "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background: var(--spotify-black);
+  color: var(--spotify-white);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  line-height:1.5;
 }
 
-/* ensure main content sits above blurred background */
-.app-bg > * {
-  position: relative;
-  z-index: 1;
+/* Generic layout container */
+.container{
+  max-width:1200px;
+  margin:0 auto;
+  padding:18px;
 }
 
-/* optionally reduce background intensity on small screens */
-@media (max-width: 700px) {
-  .app-bg::before {
-    background-size: 420px;
-    filter: blur(36px) saturate(110%);
-    opacity: 0.055;
-  }
+/* Small utilities */
+.muted{ color: var(--spotify-light-gray); }
+.center{ display:flex; align-items:center; justify-content:center; }
+.text-center{ text-align:center; }
+
+/* links & basic buttons */
+a{ color: var(--spotify-white); text-decoration:none; transition:color var(--transition-fast) }
+a:hover{ color: var(--spotify-green) }
+
+button{
+  background: var(--spotify-green);
+  color: var(--spotify-black);
+  border: none;
+  padding:8px 12px;
+  border-radius: 18px;
+  font-weight:600;
+  cursor:pointer;
+  transition: transform var(--transition-fast), background var(--transition-fast);
+}
+button:hover{ transform: translateY(-2px); background: var(--spotify-green-dark) }
+
+/* form inputs */
+input, textarea, select{
+  background: var(--spotify-dark-gray);
+  color: var(--spotify-white);
+  border: 1px solid #262626;
+  padding:8px 10px;
+  border-radius:6px;
+  outline:none;
+}
+input:focus, textarea:focus, select:focus{
+  border-color: var(--spotify-green);
+  box-shadow: 0 0 6px rgba(29,185,84,0.08);
+}
+
+/* scrollbar */
+::-webkit-scrollbar{ width:9px; height:9px }
+::-webkit-scrollbar-track{ background: #0f0f0f }
+::-webkit-scrollbar-thumb{ background: var(--spotify-green); border-radius:10px }
+::-webkit-scrollbar-thumb:hover{ background: var(--spotify-green-dark) }
+
+/* small responsive */
+@media (max-width:640px){
+  .container{ padding:12px }
+  button { padding:7px 10px }
 }
