@@ -26,7 +26,7 @@ export default function PremiumPage(){
       alert('Premium activated!');
     } catch (err) {
       console.error(err);
-      alert('Payment failed (mock). In prod integrate with payment gateway.');
+      alert('Payment failed. In prod integrate with payment gateway.');
     } finally { setLoading(false); setOpen(false); }
   };
 
@@ -36,7 +36,7 @@ export default function PremiumPage(){
       <p>Get ad-free listening and extra features.</p>
 
       <div style={{display:'flex',gap:10}}>
-        <button onClick={purchase} disabled={loading}>{loading ? 'Processing...' : 'Pay with Card / UPI (mock)'}</button>
+        <button onClick={purchase} disabled={loading}>{loading ? 'Processing...' : 'Pay with Card / UPI '}</button>
         <button onClick={()=> setOpen(false)}>Cancel</button>
       </div>
     </Modal>
