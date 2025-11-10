@@ -1,25 +1,50 @@
-// src/pages/QueuePage.js
-import React, { useContext, useEffect } from 'react';
+// frontend/src/pages/QueuePage.js
+import React, { useContext } from 'react';
 import { QueueContext } from '../contexts/QueueContext';
+import './QueuePage.css';
 
-export default function QueuePage(){
-  const { queue, currentIndex, playNext, audioRef } = useContext(QueueContext);
+export default function QueuePage() {
+  const { queue, setQueue } = useContext(QueueContext);
 
-  useEffect(()=> {
-    const audio = audioRef.current;
-    if (!audio) return;
-    const onEnded = () => playNext();
-    audio.addEventListener('ended', onEnded);
-    return () => audio.removeEventListener('ended', onEnded);
-  }, [audioRef, playNext]);
+  const clearQueue = () => {
+    if (!queue || queue.length === 0) return;
+    if (window.confirm('Clear the entire queue?')) {
+      setQueue([]);
+    }
+  };
 
   return (
-    <div style={{padding:20}}>
-      <h2>Queue</h2>
-      <audio ref={audioRef} controls style={{width:'100%'}} />
-      <ul>
-        {queue.map((s, i) => <li key={i} style={{fontWeight:i===currentIndex?'bold':'normal'}}>{s.title} - {s.artist}</li>)}
-      </ul>
+    <div className="queue-page">
+      <div className="queue-header">
+        <h2 className="queue-title">Your Queue</h2>
+        {queue && queue.length > 0 && (
+          <button className="clear-queue-btn" onClick={clearQueue}>
+            Clear Queue
+          </button>
+        )}
+      </div>
+
+      {(!queue || queue.length === 0) ? (
+        <p className="empty-queue">No songs in queue yet. Add some from the Songs page 🎶</p>
+      ) : (
+        <ul className="queue-list">
+          {queue.map((s, i) => (
+            <li key={i} className="queue-item">
+              <div className="queue-cover">
+                {s.cover ? (
+                  <img src={s.cover} alt={s.title} onError={(e)=>{ e.target.onerror=null; e.target.src='/assets/MusicStreamLogo.png'; }} />
+                ) : (
+                  <div className="placeholder">{s.title ? s.title[0].toUpperCase() : '?'}</div>
+                )}
+              </div>
+              <div className="queue-info">
+                <div className="queue-song-title">{s.title}</div>
+                <div className="queue-song-artist">{s.artist}</div>
+              </div>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 }
